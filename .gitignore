@@ -1,0 +1,6 @@
+/pkg
+/doc
+/RDOX
+ChangeLog
+/Gemfile.lock
+/.bundle
