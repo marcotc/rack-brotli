@@ -27,7 +27,7 @@ module Rack::Brotli
 
       @condition = options[:if]
       @compressible_types = options[:include]
-      @deflater_options = options[:deflater]
+      @deflater_options = { quality: 5 }.merge(options[:deflater] || {})
     end
 
     def call(env)
