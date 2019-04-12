@@ -349,7 +349,7 @@ describe Rack::Brotli do
   end
 
   it "use provided deflate options" do
-    response = 'Hello World!'
+    response = 'Hello World!' * 2
     options = {
       'deflater_options' => {
         :deflater => {
@@ -358,6 +358,12 @@ describe Rack::Brotli do
       }
     }
 
-    verify(200, response, 'br', options, 41)
+    verify(200, response, 'br', options, 28)
+  end
+
+  it "use sensible default deflate options" do
+    response = 'Hello World!' * 2
+
+    verify(200, response, 'br', {}, 19)
   end
 end
