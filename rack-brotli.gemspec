@@ -34,7 +34,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'git-version-bump', '>= 0.15'
   s.add_runtime_dependency 'brotli', '>= 0.1.7'
 
-  s.add_development_dependency 'bundler', '~> 1.0'
+  s.add_development_dependency 'bundler'
   s.add_development_dependency 'github-release', '~> 0.1'
   s.add_development_dependency 'minitest', '~> 5.6'
   s.add_development_dependency 'rake', '~> 10.4', '>= 10.4.2'
