@@ -6,7 +6,7 @@ Brotli generally compresses better than `gzip` for the same CPU cost and is supp
 
 ### Use
 
-Gems are available too:
+Install gem:
 
     gem install rack-brotli
 
