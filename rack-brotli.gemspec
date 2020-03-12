@@ -37,7 +37,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'bundler'
   s.add_development_dependency 'github-release', '~> 0.1'
   s.add_development_dependency 'minitest', '~> 5.6'
-  s.add_development_dependency 'rake', '~> 10.4', '>= 10.4.2'
+  s.add_development_dependency 'rake', '~> 12', '>= 12.3.3'
   s.add_development_dependency 'rdoc', '~> 3.12'
 
   s.has_rdoc = true
