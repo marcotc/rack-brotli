@@ -1,17 +1,14 @@
-require 'rack'
-require 'git-version-bump'
-require 'rack/brotli/deflater'
+require_relative 'brotli/deflater'
+require_relative 'brotli/version'
 
 module Rack
   module Brotli
     def self.release
-      GVB.version
+      Version.to_s
     end
 
     def self.new(app, options={})
       Rack::Brotli::Deflater.new(app, options)
     end
   end
-
-  autoload :Brotli, "rack/brotli/deflater"
 end

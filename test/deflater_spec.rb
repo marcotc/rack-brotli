@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'stringio'
-require 'rack/brotli/deflater'
+require 'rack/brotli'
 require 'rack/lint'
 require 'rack/mock'
 
