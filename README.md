@@ -1,4 +1,4 @@
-# Rack::Brotli [![Build Status](https://travis-ci.org/marcotc/rack-brotli.svg?branch=master)](https://travis-ci.org/marcotc/rack-brotli)
+# Rack::Brotli [![Gem Version](https://badge.fury.io/rb/rack-brotli.svg)](https://badge.fury.io/rb/rack-brotli) [![Build Status](https://travis-ci.org/marcotc/rack-brotli.svg?branch=master)](https://travis-ci.org/marcotc/rack-brotli)
 
 `Rack::Brotli` compresses `Rack` responses using [Google's Brotli](https://github.com/google/brotli) compression algorithm.
 
