@@ -55,7 +55,8 @@ describe Rack::Brotli do
 
     # verify body
     unless options['skip_body_verify']
-      body_text = ''
+      # Use String.new instead of '' to support environments with strings frozen by default.
+      body_text = String.new
       body.each { |part| body_text << part }
 
       deflated_body = case expected_encoding
