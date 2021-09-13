@@ -73,7 +73,8 @@ module Rack::Brotli
 
       def each(&block)
         @writer = block
-        buffer = ''
+        # Use String.new instead of '' to support environments with strings frozen by default.
+        buffer = String.new
         @body.each { |part|
           buffer << part
         }
