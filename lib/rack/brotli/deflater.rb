@@ -32,7 +32,7 @@ module Rack::Brotli
 
     def call(env)
       status, headers, body = @app.call(env)
-      headers = Rack::Utils::HeaderHash.new(headers)
+      headers = Rack::Headers.new(headers)
 
       unless should_deflate?(env, status, headers, body)
         return [status, headers, body]
