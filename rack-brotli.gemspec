@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
 
   s.extra_rdoc_files = %w[README.md COPYING]
 
-  s.add_runtime_dependency 'rack', '>= 1.4'
+  s.add_runtime_dependency 'rack', '>= 1.4', '< 3'
   s.add_runtime_dependency 'brotli', '>= 0.1.7'
 
   s.add_development_dependency 'bundler'
