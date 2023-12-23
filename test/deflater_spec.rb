@@ -10,7 +10,7 @@ describe Rack::Brotli do
     body = [body] if body.respond_to? :to_str
     app = lambda do |env|
       res = [status, options['response_headers'] || {}, body]
-      res[1]['Content-Type'] = 'text/plain' unless res[0] == 304
+      res[1]['content-type'] = 'text/plain' unless res[0] == 304
       res
     end
 
@@ -90,9 +90,9 @@ describe Rack::Brotli do
 
     verify(200, 'foobar', br_encoding, { 'app_body' => app_body }) do |status, headers, body|
       headers.must_equal({
-                           'Content-Encoding' => 'br',
-                           'Vary' => 'Accept-Encoding',
-                           'Content-Type' => 'text/plain'
+                           'content-encoding' => 'br',
+                           'vary' => 'Accept-Encoding',
+                           'content-type' => 'text/plain'
                          })
     end
   end
@@ -104,9 +104,9 @@ describe Rack::Brotli do
 
       verify(200, app_body, br_encoding, { 'skip_body_verify' => true }) do |status, headers, body|
         headers.must_equal({
-                             'Content-Encoding' => 'br',
-                             'Vary' => 'Accept-Encoding',
-                             'Content-Type' => 'text/plain'
+                             'content-encoding' => 'br',
+                             'vary' => 'Accept-Encoding',
+                             'content-type' => 'text/plain'
                            })
 
         buf = []
@@ -125,9 +125,9 @@ describe Rack::Brotli do
     opts = { 'skip_body_verify' => true }
     verify(200, app_body, 'br', opts) do |status, headers, body|
       headers.must_equal({
-                           'Content-Encoding' => 'br',
-                           'Vary' => 'Accept-Encoding',
-                           'Content-Type' => 'text/plain'
+                           'content-encoding' => 'br',
+                           'vary' => 'Accept-Encoding',
+                           'content-type' => 'text/plain'
                          })
 
       buf = []
@@ -149,9 +149,9 @@ describe Rack::Brotli do
   it 'be able to deflate String bodies' do
     verify(200, 'Hello world!', br_encoding) do |status, headers, body|
       headers.must_equal({
-                           'Content-Encoding' => 'br',
-                           'Vary' => 'Accept-Encoding',
-                           'Content-Type' => 'text/plain'
+                           'content-encoding' => 'br',
+                           'vary' => 'Accept-Encoding',
+                           'content-type' => 'text/plain'
                          })
     end
   end
@@ -162,9 +162,9 @@ describe Rack::Brotli do
 
     verify(200, 'foobar', 'br', { 'app_body' => app_body }) do |status, headers, body|
       headers.must_equal({
-                           'Content-Encoding' => 'br',
-                           'Vary' => 'Accept-Encoding',
-                           'Content-Type' => 'text/plain'
+                           'content-encoding' => 'br',
+                           'vary' => 'Accept-Encoding',
+                           'content-type' => 'text/plain'
                          })
     end
   end
@@ -176,9 +176,9 @@ describe Rack::Brotli do
 
       verify(200, app_body, 'br', { 'skip_body_verify' => true }) do |status, headers, body|
         headers.must_equal({
-                             'Content-Encoding' => 'br',
-                             'Vary' => 'Accept-Encoding',
-                             'Content-Type' => 'text/plain'
+                             'content-encoding' => 'br',
+                             'vary' => 'Accept-Encoding',
+                             'content-type' => 'text/plain'
                            })
 
         buf = []
@@ -194,7 +194,7 @@ describe Rack::Brotli do
   it 'be able to fallback to no deflation' do
     verify(200, 'Hello world!', 'superzip') do |status, headers, body|
       headers.must_equal({
-                           'Content-Type' => 'text/plain'
+                           'content-type' => 'text/plain'
                          })
     end
   end
@@ -226,13 +226,13 @@ describe Rack::Brotli do
 
     verify(200, not_found_body1, 'identity;q=0', options1) do |status, headers, body|
       headers.must_equal({
-                           'Content-Type' => 'text/plain'
+                           'content-type' => 'text/plain'
                          })
     end
 
     verify(200, not_found_body2, 'identity;q=0', options2) do |status, headers, body|
       headers.must_equal({
-                           'Content-Type' => 'text/plain'
+                           'content-type' => 'text/plain'
                          })
     end
   end
@@ -240,20 +240,20 @@ describe Rack::Brotli do
   it 'do nothing when no-transform Cache-Control directive present' do
     options = {
       'response_headers' => {
-        'Content-Type' => 'text/plain',
-        'Cache-Control' => 'no-transform'
+        'content-type' => 'text/plain',
+        'cache-control' => 'no-transform'
       }
     }
     verify(200, 'Hello World!', { 'br' => nil }, options) do |status, headers, body|
-      headers.wont_include 'Content-Encoding'
+      headers.wont_include 'content-encoding'
     end
   end
 
   it 'do nothing when Content-Encoding already present' do
     options = {
       'response_headers' => {
-        'Content-Type' => 'text/plain',
-        'Content-Encoding' => 'br'
+        'content-type' => 'text/plain',
+        'content-encoding' => 'br'
       }
     }
     verify(200, 'Hello World!', { 'br' => nil }, options)
@@ -262,8 +262,8 @@ describe Rack::Brotli do
   it 'identity when Content-Encoding is identity' do
     options = {
       'response_headers' => {
-        'Content-Type' => 'text/plain',
-        'Content-Encoding' => 'identity'
+        'content-type' => 'text/plain',
+        'content-encoding' => 'identity'
       }
     }
     verify(200, 'Hello World!', br_encoding, options)
@@ -272,7 +272,7 @@ describe Rack::Brotli do
   it "br if content-type matches :include" do
     options = {
       'response_headers' => {
-        'Content-Type' => 'text/plain'
+        'content-type' => 'text/plain'
       },
       'deflater_options' => {
         :include => %w(text/plain)
@@ -284,7 +284,7 @@ describe Rack::Brotli do
   it "br if content-type is included it :include" do
     options = {
       'response_headers' => {
-        'Content-Type' => 'text/plain; charset=us-ascii'
+        'content-type' => 'text/plain; charset=us-ascii'
       },
       'deflater_options' => {
         :include => %w(text/plain)
@@ -305,7 +305,7 @@ describe Rack::Brotli do
   it "not br if content-type do not match :include" do
     options = {
       'response_headers' => {
-        'Content-Type' => 'text/plain'
+        'content-type' => 'text/plain'
       },
       'deflater_options' => {
         :include => %w(text/json)
