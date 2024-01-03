@@ -30,30 +30,32 @@ module Rack::Brotli
       @deflater_options = { quality: 5 }.merge(options[:deflater] || {})
     end
 
+    # rack2: Rack::Headers is available since Rack 3
+    Headers = defined?(Rack::Headers) ? Rack::Headers : Rack::Utils::HeaderHash
+
     def call(env)
-      status, headers, body = @app.call(env)
-      headers = Rack::Utils::HeaderHash.new(headers)
+      status, headers, body = response = @app.call(env)
+
+      # rack2: Rack::Headers is available since Rack 3
+      headers = defined?(Rack::Headers) ? headers : Rack::Utils::HeaderHash.new(headers)
 
       unless should_deflate?(env, status, headers, body)
-        return [status, headers, body]
+        return response
       end
 
       request = Rack::Request.new(env)
 
-      encoding = Rack::Utils.select_best_encoding(%w(br),
-                                            request.accept_encoding)
-
-      return [status, headers, body] unless encoding
+      encoding = Rack::Utils.select_best_encoding(%w(br), request.accept_encoding)
 
       # Set the Vary HTTP header.
-      vary = headers["Vary"].to_s.split(",").map(&:strip)
-      unless vary.include?("*") || vary.include?("Accept-Encoding")
-        headers["Vary"] = vary.push("Accept-Encoding").join(",")
+      vary = headers["vary"].to_s.split(",").map(&:strip)
+      unless vary.include?("*") || vary.any?{|v| v.downcase == 'accept-encoding'}
+        headers["vary"] = vary.push("Accept-Encoding").join(",")
       end
 
       case encoding
       when "br"
-        headers['Content-Encoding'] = "br"
+        headers['content-encoding'] = "br"
         headers.delete(Rack::CONTENT_LENGTH)
         [status, headers, BrotliStream.new(body, @deflater_options)]
       when nil
@@ -86,12 +88,13 @@ module Rack::Brotli
         @body.close if @body.respond_to?(:close)
       end
     end
-    
+
     private
 
     def should_deflate?(env, status, headers, body)
       # Skip compressing empty entity body responses and responses with
       # no-transform set.
+      binding.irb
       if Rack::Utils::STATUS_WITH_NO_ENTITY_BODY.include?(status) ||
           headers[Rack::CACHE_CONTROL].to_s =~ /\bno-transform\b/ ||
          (headers['Content-Encoding'] && headers['Content-Encoding'] !~ /\bidentity\b/)
