@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = %w[README.md COPYING]
 
   s.add_runtime_dependency 'rack', '>= 3'
-  s.add_runtime_dependency 'brotli', '>= 0.3'
+  s.add_runtime_dependency 'brotli', '>= 0.3' # First version with support for streaming compression through Brotli::Writer
 
   s.homepage = "http://github.com/marcotc/rack-brotli/"
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "rack-brotli", "--main", "README"]

@@ -1,4 +1,4 @@
-# Rack::Brotli [![Gem Version](https://badge.fury.io/rb/rack-brotli.svg)](https://badge.fury.io/rb/rack-brotli) [![Build Status](https://travis-ci.org/marcotc/rack-brotli.svg?branch=master)](https://travis-ci.org/marcotc/rack-brotli)
+# Rack::Brotli [![Gem Version](https://badge.fury.io/rb/rack-brotli.svg)](https://badge.fury.io/rb/rack-brotli) [![Build Status](https://github.com/marcotc/rack-brotli/actions/workflows/test.yml/badge.svg)](https://github.com/marcotc/rack-brotli/actions/workflows/test.yml)
 
 `Rack::Brotli` compresses `Rack` responses using [Google's Brotli](https://github.com/google/brotli) compression algorithm.
 
@@ -17,7 +17,10 @@ Requiring `'rack/brotli'` will autoload `Rack::Brotli` module. The following exa
 require 'rack'
 require 'rack/brotli'
 
-use Rack::Brotli
+use Rack::Brotli # Default compression quality is 5
+
+# You can also provide native Brotli compression options:
+# use Rack::Brotli, quality: 11
 
 run theapp
 ```
@@ -26,10 +29,10 @@ run theapp
 
 To run the entire test suite, run 
 
-    rake test
+    bundle exec rake test
 
 ### Links
 
-* rack-brotli on GitHub:: <http://github.com/marcotc/rack-brotli>
-* Rack:: <http://rack.rubyforge.org/>
-* Rack On GitHub:: <http://github.com/rack/rack>
+* rack-brotli: <http://github.com/marcotc/rack-brotli>
+* Brotli for Ruby: <https://github.com/miyucy/brotli>
+* Rack: <http://github.com/rack/rack>
