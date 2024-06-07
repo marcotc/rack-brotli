@@ -1,5 +1,7 @@
 # Rack::Brotli [![Gem Version](https://badge.fury.io/rb/rack-brotli.svg)](https://badge.fury.io/rb/rack-brotli) [![Build Status](https://github.com/marcotc/rack-brotli/actions/workflows/test.yml/badge.svg)](https://github.com/marcotc/rack-brotli/actions/workflows/test.yml)
 
+![Brötli, the Swiss German word for a bread roll, on a Rack with some Ruby decorations](https://github.com/marcotc/rack-brotli/assets/583503/8b4af461-ed2c-4b67-8a94-45b228bd59d4)
+
 `Rack::Brotli` compresses `Rack` responses using [Google's Brotli](https://github.com/google/brotli) compression algorithm.
 
 Brotli generally compresses better than `gzip` for the same CPU cost and is supported by [pretty much everywhere](http://caniuse.com/#feat=brotli).
