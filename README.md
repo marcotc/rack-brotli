@@ -2,7 +2,7 @@
 
 `Rack::Brotli` compresses `Rack` responses using [Google's Brotli](https://github.com/google/brotli) compression algorithm.
 
-Brotli generally compresses better than `gzip` for the same CPU cost and is supported by [Chrome, Firefox, IE and Opera](http://caniuse.com/#feat=brotli).
+Brotli generally compresses better than `gzip` for the same CPU cost and is supported by [pretty much everywhere](http://caniuse.com/#feat=brotli).
 
 ### Use
 
