@@ -14,7 +14,7 @@ jobs:
           truffleruby,
           truffleruby-head
         ]
-        gemfile: [ rack2, rack3 ]
+        gemfile: [ rack3 ]
     runs-on: ${{ matrix.os }}
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
