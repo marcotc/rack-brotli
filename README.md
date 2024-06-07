@@ -10,8 +10,9 @@ Install gem:
 
     gem install rack-brotli
 
-Requiring `'rack/brotli'` will autoload `Rack::Brotli` module. The following example shows what a simple rackup
-(`config.ru`) file might look like:
+Requiring `'rack/brotli'` will autoload the `Rack::Brotli` module.
+
+The following example shows what a simple rackup (`config.ru`) file might look like:
 
 ```ruby
 require 'rack'
@@ -23,6 +24,13 @@ use Rack::Brotli # Default compression quality is 5
 # use Rack::Brotli, quality: 11
 
 run theapp
+```
+
+For a Ruby on Rails application, add to your `config/application.rb`:
+```ruby
+config.middleware.use Rack::Deflater
+# Rack::Brotli goes directly under Rack::Deflater, if Rack::Deflater is present
+config.middleware.use Rack::Brotli
 ```
 
 ### Testing
